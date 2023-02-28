@@ -7,12 +7,12 @@
 // и false, если строка длиннее.
 //  Эта функция нам пригодится для валидации формы. Примеры использования функции:
 // Cтрока короче 20 символов
-// isLenghtString('проверяемая строка', 20); // true
+// isStringLongerThan('проверяемая строка', 20); // true
 // Длина строки ровно 18 символов
-// isLenghtString('проверяемая строка', 18); // true
+// isStringLongerThan('проверяемая строка', 18); // true
 // Строка длиннее 10 символов
-// isLenghtString('проверяемая строка', 10); // false
-const isLenghtString = (testString, amountCharacters) => testString.length <= amountCharacters;
+// isStringLongerThan('проверяемая строка', 10); // false
+const isStringLongerThan = (testString, amountCharacters) => testString.length <= amountCharacters;
 
 // Функция для проверки, является ли строка палиндромом.
 // Палиндром — это слово или фраза, которые одинаково читаются и слева направо и справа налево.
@@ -25,14 +25,11 @@ const isLenghtString = (testString, amountCharacters) => testString.length <= am
 // isPalindrome('Кекс');  // false
 // isPalindrome('Лёша на полке клопа нашёл '); // true
 const isPalindrome = (testString) => {
-  testString = testString
-    .toLowerCase()
-    .replaceAll(' ', '');
-  let reverseString = '';
-  for (let i = 0; i < testString.length; i++) {
-    reverseString = testString[i] + reverseString;
-  }
-  return testString === reverseString;
+  const cleanString = testString.toLowerCase().replaceAll(' ', '');
+
+  const reverseString = Array.from(cleanString).reverse().join('');
+
+  return cleanString === reverseString;
 };
 
 // Функция, которая принимает строку,
@@ -50,9 +47,11 @@ const isPalindrome = (testString) => {
 const getNumbers = (testString) => {
   testString = testString.toString();
   let numbers = '';
+
   for (let i = 0; i < testString.length; i++) {
-    numbers = !isNaN(parseInt(testString[i], 10)) ? numbers + testString[i] : numbers; //Проверка, является ли символ числом через приведение символа строки к числу и проверка на NaN
+    numbers = !Number.isNaN(parseInt(testString[i], 10)) ? numbers + testString[i] : numbers; //Проверка, является ли символ числом через приведение символа строки к числу и проверка числа на NaN
   }
+
   return parseInt(numbers, 10);
 };
 
