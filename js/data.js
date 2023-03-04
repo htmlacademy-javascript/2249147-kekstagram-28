@@ -110,4 +110,4 @@ const generateObject = (objectId) => ({
 const objectsArray = () => Array.from({length: AMOUNT_PHOTO}, () => generateObject(generateObjectId()));
 
 // Вызов функции только для исключения ошибки в линтере
-objectsArray();
+export {objectsArray};
