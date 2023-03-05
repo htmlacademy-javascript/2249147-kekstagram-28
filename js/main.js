@@ -1,3 +1,5 @@
-import {objectsArray} from './data.js';
+import { getObjectsArray } from './data.js';
 
-objectsArray();
+// Вызов функции только для исключения ошибки в линтере
+// console.log(getObjectsArray());
+getObjectsArray();

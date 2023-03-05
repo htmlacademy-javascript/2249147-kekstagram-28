@@ -20,6 +20,6 @@ const getRandomInteger = (min, max) => {
 // Функция для получения случайного элемента массива, которая
 // принимает в качестве параметра один массив, а
 // возвращает его случайное значение.
-const arrayRandElement = (array) => array[getRandomInteger(0, array.length - 1)];
+const getArrayRandElement = (array) => array[getRandomInteger(0, array.length - 1)];
 
-export {createIdGenerator, getRandomInteger, arrayRandElement};
+export { createIdGenerator, getRandomInteger, getArrayRandElement };

@@ -1,4 +1,4 @@
-import {createIdGenerator, getRandomInteger, arrayRandElement} from './util.js';
+import { createIdGenerator, getRandomInteger, getArrayRandElement } from './util.js';
 
 /*Структура объекта:
 id, число — идентификатор опубликованной фотографии. Это число от 1 до 25. Идентификаторы не должны повторяться.
@@ -93,21 +93,20 @@ const generateCommentId = createIdGenerator(AMOUNT_PHOTO);
 const generateCommentObject = () => ({
   id: generateCommentId(),
   avatar: `img/avatar-${getRandomInteger(1, AMOUNT_AVIALABEL_AVATARS)}.svg`,
-  message: Array.from({length: getRandomInteger(1, 2)}, () => arrayRandElement(MESSAGES)).join(' '),
-  name: arrayRandElement(NAMES)
+  message: Array.from({length: getRandomInteger(1, 2)}, () => getArrayRandElement(MESSAGES)).join(' '),
+  name: getArrayRandElement(NAMES)
 });
 
 // Функция генератор объекта
 const generateObject = (objectId) => ({
   id: objectId,
   url: `photos/${objectId}.jpg`,
-  description: arrayRandElement(DESCRIPTIONS),
+  description: getArrayRandElement(DESCRIPTIONS),
   likes: getRandomInteger(MIN_AMOUNT_LIKES, MAX_AMOUNT_LIKES),
-  comments: Array.from({length: MAX_AMOUNT_COMMENTS_IN_OBJECT}, () => generateCommentObject())
+  comments: Array.from({length: getRandomInteger(0, MAX_AMOUNT_COMMENTS_IN_OBJECT)}, () => generateCommentObject())
 });
 
 // Массив объектов
-const objectsArray = () => Array.from({length: AMOUNT_PHOTO}, () => generateObject(generateObjectId()));
+const getObjectsArray = () => Array.from({length: AMOUNT_PHOTO}, () => generateObject(generateObjectId()));
 
-// Вызов функции только для исключения ошибки в линтере
-export {objectsArray};
+export { getObjectsArray };
