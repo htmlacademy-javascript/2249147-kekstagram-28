@@ -1,12 +1,12 @@
 //Функция генерации уникальных идентификаторов
-function createIdGenerator (start) {
+const createIdGenerator = (start) => {
   let lastGeneratedId = start;
 
   return function () {
     lastGeneratedId += 1;
     return lastGeneratedId;
   };
-}
+};
 
 // Функция генерации для получения уникальных целых чисел из указанного диапазона
 const getRandomInteger = (min, max) => {
