@@ -1,5 +1,4 @@
 import { getObjectsArray } from './data.js';
+import { showPictures } from './miniatures.js';
 
-// Вызов функции только для исключения ошибки в линтере
-// console.log(getObjectsArray());
-getObjectsArray();
+showPictures(getObjectsArray());
