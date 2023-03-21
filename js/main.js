@@ -1,4 +1,8 @@
 import { getObjectsArray } from './data.js';
-import { showPictures } from './miniatures.js';
+import { renderMiniatures } from './miniatures.js';
+import { renderFullPicture } from './fullPicture.js';
 
-showPictures(getObjectsArray());
+const objectsArray = getObjectsArray();
+
+renderMiniatures(objectsArray);
+renderFullPicture(objectsArray);

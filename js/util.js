@@ -1,3 +1,12 @@
+// Функция генерации для получения уникальных целых чисел из указанного диапазона
+const getRandomInteger = (min, max) => {
+  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
+  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+
+  return Math.floor(result);
+};
+
 //Функция генерации уникальных идентификаторов
 const createIdGenerator = (start) => {
   let lastGeneratedId = start;
@@ -8,18 +17,13 @@ const createIdGenerator = (start) => {
   };
 };
 
-// Функция генерации для получения уникальных целых чисел из указанного диапазона
-const getRandomInteger = (min, max) => {
-  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
-  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
-  const result = Math.random() * (upper - lower + 1) + lower;
-
-  return Math.floor(result);
-};
-
 // Функция для получения случайного элемента массива, которая
 // принимает в качестве параметра один массив, а
 // возвращает его случайное значение.
 const getArrayRandElement = (array) => array[getRandomInteger(0, array.length - 1)];
 
-export { createIdGenerator, getRandomInteger, getArrayRandElement };
+// Проверка нажатия клавиши ESC и ENTER
+const isEscapeKey = (evt) => evt.key === 'Escape';
+const isEnterKey = (evt) => evt.key === 'Enter';
+
+export { createIdGenerator, getRandomInteger, getArrayRandElement, isEscapeKey, isEnterKey };
