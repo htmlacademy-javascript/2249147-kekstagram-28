@@ -4,19 +4,16 @@ const mainWindow = document.querySelector('body');
 const bigPictureWindow = document.querySelector('.big-picture');
 const bigPictureImage = bigPictureWindow.querySelector('.big-picture__img img');
 const bigPictureLikes = bigPictureWindow.querySelector('.likes-count');
-// -------------------------------------------------------------------------------------------------------------------------------------???
-// А нужно ли эту переменную вводить или лучше не плодить подобные???
-// const bigPictureComments = bigPictureWindow.querySelector('.comments-count');
 const bigPictureDescription = bigPictureWindow.querySelector('.social__caption');
-
 const fullPictureOpenElement = document.querySelector('.pictures');
 const fullPictureCloseElement = document.querySelector('#picture-cancel');
 const commentsCounter = document.querySelector('.social__comment-count');
 const commentsLoaderButton = document.querySelector('.comments-loader');
 const commentsList = document.querySelector('.social__comments');
-let commentsShow = 0;
 
+let commentsShow = 0;
 const AMOUNT_COMMENTS_DEFAULT = 5;
+let chooseObject = {};
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -28,6 +25,7 @@ const onDocumentKeydown = (evt) => {
 };
 
 const renderComments = (object) => {
+  // debugger;
   commentsLoaderButton.classList.remove('hidden');
   commentsShow += AMOUNT_COMMENTS_DEFAULT ;
 
@@ -38,6 +36,7 @@ const renderComments = (object) => {
 
   commentsList.innerHTML = '';
 
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Надо доделать!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1!!!!!!!!!!!!!!!
   // const fragment = document.createDocumentFragment();
   for (let i = 0; i < commentsShow; i++) {
     const newComment = document.createElement('li');
@@ -61,9 +60,7 @@ const renderComments = (object) => {
   bigPictureWindow.querySelector('.comments-count').textContent = object.comments.length;
 };
 
-// ----------------------------------------------------------------------------------------------------------------------------------????
-// Как удалять обработчик нажатия на кнопку добавления комментариев???
-// const onCommentsLoaderButtonClick = (object) => renderComments(object);
+const onCommentsLoaderButtonClick = () => renderComments(chooseObject);
 
 const openFullPicture = (evt, dataArray) => {
   bigPictureWindow.classList.remove('hidden');
@@ -77,7 +74,7 @@ const openFullPicture = (evt, dataArray) => {
 
   // Поиск элемента массива данных, на картинку которого произошёл клик по дата атрибуту ссылки
   const pictureId = evt.target.closest('.picture').dataset.id;
-  const chooseObject = dataArray.find((object) => object.id === Number(pictureId));
+  chooseObject = dataArray.find((object) => object.id === Number(pictureId));
 
   // Адрес изображения url подставьте как src изображения внутри блока .big-picture__img
   bigPictureImage.src = chooseObject.url;
@@ -85,11 +82,10 @@ const openFullPicture = (evt, dataArray) => {
   // Количество лайков likes подставьте как текстовое содержание элемента .likes-count
   bigPictureLikes.textContent = chooseObject.likes;
   // Список комментариев под фотографией: комментарии должны вставляться в блок .social__comments
+  // и добавляться новая порция при нажатии кнопки 'Загрузить ещё'
   renderComments(chooseObject);
-  // -----------------------------------------------------------------------------------------------------------------------------------????
-  // Как удалять обработчик нажатия на кнопку добавления комментариев???
-  // commentsLoaderButton.addEventListener('click', onCommentsLoaderButtonClick);
-  commentsLoaderButton.addEventListener('click', () => renderComments(chooseObject));
+  commentsLoaderButton.addEventListener('click', onCommentsLoaderButtonClick);
+
   // Описание фотографии description вставьте строкой в блок .social__caption
   bigPictureDescription.textContent = chooseObject.description;
 };
@@ -102,9 +98,8 @@ const closeFullPicture = () => {
   // чтобы контейнер с фотографиями позади не прокручивался при скролле.
   // При закрытии окна этот класс удаляется.
   mainWindow.classList.remove('modal-open');
-  // ---------------------------------------------------------------------------------------------------------------------------------------????
-  // Как удалять обработчик нажатия на кнопку добавления комментариев???
-  // commentsLoaderButton.removeEventListener('click', onCommentsLoaderButtonClick);
+
+  commentsLoaderButton.removeEventListener('click', onCommentsLoaderButtonClick);
 };
 
 const renderFullPicture = (dataArray) => {
