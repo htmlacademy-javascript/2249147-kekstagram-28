@@ -25,7 +25,7 @@ comments, массив объектов — список комментарие�
   // Имена авторов также должны быть случайными. Набор имён для комментаторов составьте сами. Подставляйте случайное имя в поле name.*/
 
 const AMOUNT_PHOTO = 25;
-const MAX_AMOUNT_COMMENTS_IN_OBJECT = 10;
+const MAX_AMOUNT_COMMENTS_IN_OBJECT = 15;
 const MIN_AMOUNT_LIKES = 15;
 const MAX_AMOUNT_LIKES = 200;
 const AMOUNT_AVIALABEL_AVATARS = 6;
