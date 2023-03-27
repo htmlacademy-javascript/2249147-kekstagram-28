@@ -12,7 +12,7 @@ const commentsLoaderButton = document.querySelector('.comments-loader');
 const commentsList = document.querySelector('.social__comments');
 
 let commentsShow = 0;
-const AMOUNT_COMMENTS_DEFAULT = 5;
+const AMOUNT_COMMENTS_DEFAULT = 5; // Количество комментариев в порции показа по умолчанию
 let chooseObject = {};
 
 const onDocumentKeydown = (evt) => {
