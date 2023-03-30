@@ -1,5 +1,7 @@
 import { isEscapeKey } from './util.js';
 
+const AMOUNT_COMMENTS_DEFAULT = 5; // Количество комментариев в порции показа по умолчанию
+
 const mainWindow = document.querySelector('body');
 const bigPictureWindow = document.querySelector('.big-picture');
 const bigPictureImage = bigPictureWindow.querySelector('.big-picture__img img');
@@ -12,7 +14,6 @@ const commentsLoaderButton = document.querySelector('.comments-loader');
 const commentsList = document.querySelector('.social__comments');
 
 let commentsShow = 0;
-const AMOUNT_COMMENTS_DEFAULT = 5; // Количество комментариев в порции показа по умолчанию
 let chooseObject = {};
 
 const onDocumentKeydown = (evt) => {

@@ -1413,9 +1413,4 @@ main {
   background-color: #ffffff;
   color: #dd4747;
   font-weight: bold;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -60px;
-  text-align: center;
 }

@@ -1,4 +1,6 @@
 import { isEscapeKey, isActiveElement } from './util.js';
+import './scale.js';
+import './effects.js';
 
 const mainWindow = document.querySelector('body');
 const formLoadPicture = document.querySelector('.img-upload__form'); // Форма отправки изображения
@@ -9,7 +11,7 @@ const inputHashTag = formLoadPicture.querySelector('.text__hashtags'); // Пол
 const inputYourComment = formLoadPicture.querySelector('.text__description'); // Поле ввода комментария
 const inputChoiseFile = document.querySelector('#upload-file');
 
-// const TAG_ERROR_TEXT = 'Ошибка заполнения поля #ХэшТэг';
+// Ошибка заполнения поля #ХэшТэг: регилярное выражение и количество допустимых хэштегов
 const HASH_TAGS_STANDART = /^#[a-zа-яё0-9]{1,19}$/i;
 const HASH_TAGS_AMOUNT = 5;
 
@@ -20,7 +22,8 @@ const pristine = new Pristine(formLoadPicture, {
   errorTextClass: 'img-upload__field-wrapper--error-text',
 });
 
-const getArrayHashTags = (someHashTagsString) => someHashTagsString.toLowerCase().split(' ').filter((n) => n);
+// Получаем массив тегов из введённой строки в поле для хэштегов
+const getArrayHashTags = (someHashTagsString) => someHashTagsString.toLowerCase().split(' ').filter((tag) => tag);
 
 pristine.addValidator(
   inputHashTag,
@@ -39,6 +42,7 @@ pristine.addValidator(
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();
+
   if(pristine.validate()) {
     formLoadPicture.submit();
   }
@@ -72,6 +76,8 @@ const closeformLoadPicture = () => {
   // Сброс значения поля выбора файла #upload-file.
   inputChoiseFile.value = '';
   // Значение других полей формы также нужно сбрасывать. Сброс значений при закрытии форм на ретро 17.35 9 глава.-----------------------???
+  // Значение масштаба по умолчанию сбрасывается до состояния аттрибута value="100%"
+
 };
 
 
