@@ -1,6 +1,6 @@
 import { isEscapeKey, isActiveElement } from './util.js';
-import './scale.js';
-import './effects.js';
+import { resetScale } from './scale.js';
+import { resetEffects } from './effects.js';
 
 const mainWindow = document.querySelector('body');
 const formLoadPicture = document.querySelector('.img-upload__form'); // Форма отправки изображения
@@ -76,7 +76,8 @@ const closeformLoadPicture = () => {
   // Сброс значения поля выбора файла #upload-file.
   inputChoiseFile.value = '';
   // Значение других полей формы также нужно сбрасывать. Сброс значений при закрытии форм на ретро 17.35 9 глава.-----------------------???
-  // Значение масштаба по умолчанию сбрасывается до состояния аттрибута value="100%"
+  resetScale();
+  resetEffects();
 
 };
 

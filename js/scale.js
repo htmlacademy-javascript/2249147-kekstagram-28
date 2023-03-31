@@ -24,3 +24,9 @@ scaleControlBigger.addEventListener('click', () => {
 });
 
 // ---------------------------------Надо ли удалять обработчики событий с кнопок и где это делать? В этом модуле или в formProcessingLoadPicture ???
+
+const resetScale = () => {
+  imagePreview.style.transform = '';
+};
+
+export { resetScale };

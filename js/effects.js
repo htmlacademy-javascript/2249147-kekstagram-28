@@ -24,6 +24,42 @@ const EFFECTS = {
     effectStart: 1,
     effectStep: 0.1,
     effectPostfix: ''
+  },
+  sepia: {
+    effectFilter: 'sepia',
+    showSlider: true,
+    effectMin: 0,
+    effectMax: 1,
+    effectStart: 1,
+    effectStep: 0.1,
+    effectPostfix: ''
+  },
+  marvin: {
+    effectFilter: 'invert',
+    showSlider: true,
+    effectMin: 0,
+    effectMax: 100,
+    effectStart: 100,
+    effectStep: 1,
+    effectPostfix: '%'
+  },
+  phobos: {
+    effectFilter: 'blur',
+    showSlider: true,
+    effectMin: 0,
+    effectMax: 3,
+    effectStart: 3,
+    effectStep: 0.1,
+    effectPostfix: 'px'
+  },
+  heat: {
+    effectFilter: 'brightness',
+    showSlider: true,
+    effectMin: 1,
+    effectMax: 3,
+    effectStart: 3,
+    effectStep: 0.1,
+    effectPostfix: ''
   }
 };
 
@@ -39,15 +75,16 @@ const showSlider = (objectEffect) => (objectEffect.showSlider) ? sliderElementCo
 
 noUiSlider.create(sliderElement, {
   range: {
-    min: 0, // EFFECT_MIN,
-    max: 100, // EFFECT_MAX,
+    min: selectedEffect.effectMin,
+    max: selectedEffect.effectMax,
   },
-  start: 50, // EFFECT_START,
-  step: 1, // EFFECT_STEP,
+  start: selectedEffect.effectStart,
+  step: selectedEffect.effectStep,
   connect: 'lower', // Закрашивание слайдера с минимума до текущего значения
+  // ----------------------------------------------------------------------------------Нужно ли убирать знаки после запятой в значениях эффектов для отправки на сервер???
   // format: {
   //   to: function (value) {
-  //     return `${value}%`;
+  //     return `${value}`;
   //   },
   //   from: function (value) {
   //     return parseFloat(value);
@@ -58,21 +95,36 @@ showSlider(selectedEffect);
 
 sliderElement.noUiSlider.on('update', () => {
   effectLevelValue.value = sliderElement.noUiSlider.get();
-  console.log(effectLevelValue.value);
-  imagePreview.style.filter = `${selectedEffect.effectFilter}(${effectLevelValue.value})`;
+  imagePreview.style.filter = `${selectedEffect.effectFilter}(${effectLevelValue.value}${selectedEffect.effectPostfix})`;
 });
+
+const renderImagePreview = (objectEffect) => {
+  // Переопределяем настройки слайдера
+  sliderElement.noUiSlider.updateOptions({
+    range: {
+      min: objectEffect.effectMin,
+      max: objectEffect.effectMax,
+    },
+    start: objectEffect.effectStart,
+    step: objectEffect.effectStep,
+  });
+  showSlider(objectEffect);
+
+  imagePreview.className = '';
+  imagePreview.style.filter = '';
+  imagePreview.style.filter = `${selectedEffect.effectFilter}(${selectedEffect.effectStart}${selectedEffect.effectPostfix})`;
+};
 
 effectSelection.addEventListener('change', (evt) => {
   // Определение выбранного эффекта
   selectedEffect = EFFECTS[evt.target.value];
-
-  showSlider(selectedEffect);
-  imagePreview.style.filter = `${selectedEffect.effectFilter}(${selectedEffect.effectStart})`;
-
-
-
-  // const pictureId = evt.target.closest('.picture').dataset.id;
-  // chooseObject = dataArray.find((object) => object.id === Number(pictureId));
-
-  // showSlider();
+  imagePreview.classList.add(`effects__preview--${evt.target.value}`);
+  renderImagePreview(selectedEffect);
 });
+
+const resetEffects = () => {
+  selectedEffect = EFFECTS.none;
+  renderImagePreview(selectedEffect);
+};
+
+export { resetEffects };
