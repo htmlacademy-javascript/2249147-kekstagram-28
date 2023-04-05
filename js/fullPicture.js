@@ -16,15 +16,6 @@ const commentsList = document.querySelector('.social__comments');
 let commentsShow = 0;
 let chooseObject = {};
 
-const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeFullPicture();
-  // -----------------------------------------------------------------------------------------------------------------------------------???
-  // Как мы используем функцию до её декларирования, почему это работает??? Точнее как в данном случае уйти от этой ошибки от линтера?
-  }
-};
-
 const renderComments = (object) => {
   // debugger;
   commentsLoaderButton.classList.remove('hidden');
@@ -37,8 +28,6 @@ const renderComments = (object) => {
 
   commentsList.innerHTML = '';
 
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Надо доделать!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1!!!!!!!!!!!!!!!
-  // const fragment = document.createDocumentFragment();
   for (let i = 0; i < commentsShow; i++) {
     const newComment = document.createElement('li');
     newComment.classList.add('social__comment');
@@ -62,6 +51,24 @@ const renderComments = (object) => {
 };
 
 const onCommentsLoaderButtonClick = () => renderComments(chooseObject);
+
+const closeFullPicture = () => {
+  bigPictureWindow.classList.add('hidden');
+  // После открытия окна добавление тегу <body> класс modal-open,
+  // чтобы контейнер с фотографиями позади не прокручивался при скролле.
+  // При закрытии окна этот класс удаляется.
+  mainWindow.classList.remove('modal-open');
+
+  commentsLoaderButton.removeEventListener('click', onCommentsLoaderButtonClick);
+  document.removeEventListener('keydown', onDocumentKeydown);
+};
+
+function onDocumentKeydown(evt) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeFullPicture();
+  }
+}
 
 const openFullPicture = (evt, dataArray) => {
   bigPictureWindow.classList.remove('hidden');
@@ -89,18 +96,6 @@ const openFullPicture = (evt, dataArray) => {
 
   // Описание фотографии description вставьте строкой в блок .social__caption
   bigPictureDescription.textContent = chooseObject.description;
-};
-
-const closeFullPicture = () => {
-  bigPictureWindow.classList.add('hidden');
-  document.removeEventListener('keydown', onDocumentKeydown);
-
-  // После открытия окна добавление тегу <body> класс modal-open,
-  // чтобы контейнер с фотографиями позади не прокручивался при скролле.
-  // При закрытии окна этот класс удаляется.
-  mainWindow.classList.remove('modal-open');
-
-  commentsLoaderButton.removeEventListener('click', onCommentsLoaderButtonClick);
 };
 
 const renderFullPicture = (dataArray) => {

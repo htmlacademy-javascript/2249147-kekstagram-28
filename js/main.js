@@ -1,10 +1,22 @@
-import { getObjectsArray } from './data.js';
+// import { getObjectsArray } from './data.js';
 import { renderMiniatures } from './miniatures.js';
 import { renderFullPicture } from './fullPicture.js';
-import { renderFormLoadPicture } from './formProcessingLoadPicture.js';
+import { openformLoadPicture, onFormSubmit, closeformLoadPicture } from './formProcessingLoadPicture.js';
+import { getData } from './api.js';
+import { showAlert } from './util.js';
 
-const objectsArray = getObjectsArray();
+// let objectsArray = getObjectsArray();
 
-renderMiniatures(objectsArray);
-renderFullPicture(objectsArray);
-renderFormLoadPicture();
+getData()
+  .then((objectsArray) => {
+    renderMiniatures(objectsArray);
+    renderFullPicture(objectsArray);
+  })
+  .catch(
+    (err) => {
+      showAlert(err.message);
+    }
+  );
+
+openformLoadPicture();
+onFormSubmit(closeformLoadPicture);

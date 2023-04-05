@@ -6,7 +6,7 @@
 // Для эффекта «Зной» — filter: brightness(1..3) с шагом 0.1;
 // Для эффекта «Оригинал» CSS-стили filter удаляются.
 
-const EFFECTS = {
+const Effects = {
   none: {
     effectFilter: 'none',
     showSlider: false,
@@ -69,7 +69,7 @@ const imagePreview = document.querySelector('.img-upload__preview').querySelecto
 const sliderElementContainer = document.querySelector('.img-upload__effect-level');
 const effectSelection = document.querySelector('.img-upload__effects');
 
-let selectedEffect = EFFECTS.none;
+let selectedEffect = Effects.none;
 
 const showSlider = (objectEffect) => (objectEffect.showSlider) ? sliderElementContainer.classList.remove('hidden') : sliderElementContainer.classList.add('hidden');
 
@@ -81,7 +81,7 @@ noUiSlider.create(sliderElement, {
   start: selectedEffect.effectStart,
   step: selectedEffect.effectStep,
   connect: 'lower', // Закрашивание слайдера с минимума до текущего значения
-  // ----------------------------------------------------------------------------------Нужно ли убирать знаки после запятой в значениях эффектов для отправки на сервер???
+  // ----------------------------------Нужно ли убирать знаки после запятой в значениях эффектов для отправки на сервер??? В ТЗ про это конкретно нет.-------???
   // format: {
   //   to: function (value) {
   //     return `${value}`;
@@ -117,13 +117,13 @@ const renderImagePreview = (objectEffect) => {
 
 effectSelection.addEventListener('change', (evt) => {
   // Определение выбранного эффекта
-  selectedEffect = EFFECTS[evt.target.value];
+  selectedEffect = Effects[evt.target.value];
   imagePreview.classList.add(`effects__preview--${evt.target.value}`);
   renderImagePreview(selectedEffect);
 });
 
 const resetEffects = () => {
-  selectedEffect = EFFECTS.none;
+  selectedEffect = Effects.none;
   renderImagePreview(selectedEffect);
 };
 
