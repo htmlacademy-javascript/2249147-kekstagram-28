@@ -4,9 +4,11 @@ import { resetEffects } from './effects.js';
 import { renderMessage } from './messages.js';
 import { sendData } from './api.js';
 
-// Ошибка заполнения поля #ХэшТэг: регилярное выражение и количество допустимых хэштегов
+// Ошибка заполнения поля #ХэшТэг: регулярное выражение и количество допустимых хэштегов
 const HASH_TAGS_STANDART = /^#[a-zа-яё0-9]{1,19}$/i;
 const HASH_TAGS_AMOUNT = 5;
+// Допустимые типы файлов загружаемых изображений
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
@@ -18,8 +20,6 @@ const formLoadPicture = document.querySelector('.img-upload__form'); // Форм
 const formOverlay = formLoadPicture.querySelector('.img-upload__overlay');
 const formUpLoadPictureElement = document.querySelector('.img-upload__input');
 const formCancelLoadPictureElement = formLoadPicture.querySelector('.img-upload__cancel');
-// const imagePreview = document.querySelector('.img-upload__preview').querySelector('img');
-// const previewEffectsImages = formLoadPicture.querySelectorAll('.effects__preview');
 const inputHashTag = formLoadPicture.querySelector('.text__hashtags'); // Поле ввода хэштега
 const inputYourComment = formLoadPicture.querySelector('.text__description'); // Поле ввода комментария
 const inputChoiseFile = document.querySelector('#upload-file');
@@ -55,13 +55,10 @@ const closeformLoadPicture = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
   formCancelLoadPictureElement.removeEventListener('click', onCloseFormElement);
 
-  // Надо ли отписываться от обработчика отправки формы--------------------------------------------------------------------------------------------???
-  // formLoadPicture.removeEventListener('submit', onFormSubmit);
-
   // Сброс значений при закрытии формы.
   // Сброс значения поля выбора файла #upload-file.
   inputChoiseFile.value = '';
-  // Значение других полей формы также нужно сбрасывать. Сброс значений при закрытии форм на ретро, свериться 17.35 9 глава.-----------------------!!!
+  // Значение других полей формы также нужно сбрасывать
   resetScale();
   resetEffects();
 };
@@ -89,17 +86,16 @@ const unblockSubmitButton = () => {
 
 const onFormSubmit = (onSuccess) => {
   formLoadPicture.addEventListener('submit', (evt) => {
+  // Нужно ли отписываться от этого обработчика и как идеалогически это правильно реализовать-----------------------------------------------------???
     evt.preventDefault();
 
     if(pristine.validate()) {
-      // const formData = new FormData(evt.target);
       blockSubmitButton();
       sendData(new FormData(evt.target))
         .then(() => {
           onSuccess();
           renderMessage('success');
         })
-        // .then(renderMessage('success'))
         .catch(
           () => {
             renderMessage('error');
@@ -110,6 +106,22 @@ const onFormSubmit = (onSuccess) => {
   });
 };
 
+const showSelectImage = () => {
+  const file = formUpLoadPictureElement.files[0];
+  const fileName = file.name.toLowerCase();
+  const bigPictureImage = formLoadPicture.querySelector('.img-upload__preview img');
+  const previewEffectsImages = formLoadPicture.querySelectorAll('.effects__preview');
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    bigPictureImage.src = URL.createObjectURL(formUpLoadPictureElement.files[0]);
+    previewEffectsImages.forEach((image) => {
+      image.style.backgroundImage = `url(${URL.createObjectURL(formUpLoadPictureElement.files[0])})`;
+    });
+  }
+};
+
 const openformLoadPicture = () => {
   formUpLoadPictureElement.addEventListener('change', () => {
     formOverlay.classList.remove('hidden');
@@ -117,12 +129,8 @@ const openformLoadPicture = () => {
     document.addEventListener('keydown', onDocumentKeydown);
     formCancelLoadPictureElement.addEventListener('click', onCloseFormElement);
 
-    // Подставляем адрес выбранной картинки-------------------------------------------------------------------Разобраться!!!
-    // console.log(formUpLoadPictureElement.value); // и ничего не работает...
-    // imagePreview.src = window.URL.createObjectURL(uploadFile.files[0]);
-    // previewEffectsImages.forEach((image) => {
-    //   image.style.backgroundImage = 'url(${URL.createObjectURL(fileImage)})';
-    // });
+    // Подставляем адрес выбранной картинки
+    showSelectImage();
   });
 };
 
