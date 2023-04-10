@@ -49,9 +49,10 @@ pristine.addValidator(
   (value) => getArrayHashTags(value).length <= HASH_TAGS_AMOUNT,
   `Нельзя указать больше ${ HASH_TAGS_AMOUNT } хэш-тегов!`);
 
-const closeformLoadPicture = () => {
+const closeFormLoadPicture = () => {
   formOverlay.classList.add('hidden');
   mainWindow.classList.remove('modal-open');
+
   document.removeEventListener('keydown', onDocumentKeydown);
   formCancelLoadPictureElement.removeEventListener('click', onCloseFormElement);
 
@@ -66,12 +67,12 @@ const closeformLoadPicture = () => {
 function onDocumentKeydown(evt) {
   if (isEscapeKey(evt) && !isActiveElement(inputHashTag) && !isActiveElement(inputYourComment)) {
     evt.preventDefault();
-    closeformLoadPicture();
+    closeFormLoadPicture();
   }
 }
 
 function onCloseFormElement() {
-  closeformLoadPicture();
+  closeFormLoadPicture();
 }
 
 const blockSubmitButton = () => {
@@ -121,7 +122,7 @@ const showSelectImage = () => {
   }
 };
 
-const openformLoadPicture = () => {
+const openFormLoadPicture = () => {
   formUpLoadPictureElement.addEventListener('change', () => {
     formOverlay.classList.remove('hidden');
     mainWindow.classList.add('modal-open');
@@ -133,4 +134,4 @@ const openformLoadPicture = () => {
   });
 };
 
-export { openformLoadPicture, onFormSubmit, closeformLoadPicture };
+export { openFormLoadPicture, onFormSubmit, closeFormLoadPicture };

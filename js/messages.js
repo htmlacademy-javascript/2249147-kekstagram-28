@@ -18,7 +18,7 @@ let messageCloseElement = {};
 const closeMessage = () => {
   messageElement.remove();
 
-  messageCloseElement.addEventListener('click', onMessageCloseElement);
+  // messageCloseElement.removeEventListener('click', onMessageCloseElement);
   document.removeEventListener('keydown', onDocumentKeydown);
   document.removeEventListener('click', onFreeAreaClick);
 };

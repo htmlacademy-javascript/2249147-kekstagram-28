@@ -1,6 +1,6 @@
 import { renderMiniatures } from './miniatures.js';
-import { renderFullPicture } from './fullPicture.js';
-import { openformLoadPicture, onFormSubmit, closeformLoadPicture } from './form-processing-load-picture.js';
+import { renderFullPicture } from './full-picture.js';
+import { openFormLoadPicture, onFormSubmit, closeFormLoadPicture } from './form-processing-load-picture.js';
 import { getData } from './api.js';
 import { showAlert } from './util.js';
 import { renderFilteredMiniatures } from './filters.js';
@@ -17,5 +17,5 @@ getData()
     }
   );
 
-openformLoadPicture();
-onFormSubmit(closeformLoadPicture);
+openFormLoadPicture();
+onFormSubmit(closeFormLoadPicture);

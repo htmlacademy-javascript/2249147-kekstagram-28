@@ -1,4 +1,4 @@
-const ALERT_SHOW_TIME = 500;
+const ALERT_SHOW_TIME = 2000;
 
 // Функция генерации для получения уникальных целых чисел из указанного диапазона
 const getRandomInteger = (min, max) => {
