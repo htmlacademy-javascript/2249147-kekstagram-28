@@ -18,7 +18,7 @@ let messageCloseElement = {};
 const closeMessage = () => {
   messageElement.remove();
 
-  // messageCloseElement.removeEventListener('click', onMessageCloseElement);
+  messageCloseElement.removeEventListener('click', onMessageCloseElementClick);
   document.removeEventListener('keydown', onDocumentKeydown);
   document.removeEventListener('click', onFreeAreaClick);
 };
@@ -30,7 +30,7 @@ function onDocumentKeydown(evt) {
   }
 }
 
-function onMessageCloseElement() {
+function onMessageCloseElementClick() {
   closeMessage();
 }
 
@@ -53,7 +53,7 @@ const renderMessage = (message) => {
   messageElement = documentBody.querySelector(`.${ message }`);
   messageCloseElement = documentBody.querySelector(`.${ message }__button`);
 
-  messageCloseElement.addEventListener('click', onMessageCloseElement);
+  messageCloseElement.addEventListener('click', onMessageCloseElementClick);
   document.addEventListener('keydown', onDocumentKeydown);
   document.addEventListener('click', onFreeAreaClick);
 };

@@ -18,8 +18,8 @@ const SubmitButtonText = {
 const mainWindow = document.querySelector('body');
 const formLoadPicture = document.querySelector('.img-upload__form'); // Форма отправки изображения
 const formOverlay = formLoadPicture.querySelector('.img-upload__overlay');
-const formUpLoadPictureElement = document.querySelector('.img-upload__input');
-const formCancelLoadPictureElement = formLoadPicture.querySelector('.img-upload__cancel');
+const formUpLoadPicture = document.querySelector('.img-upload__input');
+const formCancelLoadPicture = formLoadPicture.querySelector('.img-upload__cancel');
 const inputHashTag = formLoadPicture.querySelector('.text__hashtags'); // Поле ввода хэштега
 const inputYourComment = formLoadPicture.querySelector('.text__description'); // Поле ввода комментария
 const inputChoiseFile = document.querySelector('#upload-file');
@@ -54,7 +54,7 @@ const closeFormLoadPicture = () => {
   mainWindow.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onDocumentKeydown);
-  formCancelLoadPictureElement.removeEventListener('click', onCloseFormElement);
+  formCancelLoadPicture.removeEventListener('click', onCloseFormElementClick);
 
   // Сброс значений при закрытии формы.
   // Сброс значения поля выбора файла #upload-file.
@@ -71,7 +71,7 @@ function onDocumentKeydown(evt) {
   }
 }
 
-function onCloseFormElement() {
+function onCloseFormElementClick() {
   closeFormLoadPicture();
 }
 
@@ -107,7 +107,7 @@ const onFormSubmit = (onSuccess) => {
 };
 
 const showSelectImage = () => {
-  const file = formUpLoadPictureElement.files[0];
+  const file = formUpLoadPicture.files[0];
   const fileName = file.name.toLowerCase();
   const bigPictureImage = formLoadPicture.querySelector('.img-upload__preview img');
   const previewEffectsImages = formLoadPicture.querySelectorAll('.effects__preview');
@@ -115,19 +115,20 @@ const showSelectImage = () => {
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
   if (matches) {
-    bigPictureImage.src = URL.createObjectURL(formUpLoadPictureElement.files[0]);
+    bigPictureImage.src = URL.createObjectURL(formUpLoadPicture.files[0]);
     previewEffectsImages.forEach((image) => {
-      image.style.backgroundImage = `url(${URL.createObjectURL(formUpLoadPictureElement.files[0])})`;
+      image.style.backgroundImage = `url(${URL.createObjectURL(formUpLoadPicture.files[0])})`;
     });
   }
 };
 
 const openFormLoadPicture = () => {
-  formUpLoadPictureElement.addEventListener('change', () => {
+  formUpLoadPicture.addEventListener('change', () => {
     formOverlay.classList.remove('hidden');
     mainWindow.classList.add('modal-open');
+
     document.addEventListener('keydown', onDocumentKeydown);
-    formCancelLoadPictureElement.addEventListener('click', onCloseFormElement);
+    formCancelLoadPicture.addEventListener('click', onCloseFormElementClick);
 
     // Подставляем адрес выбранной картинки
     showSelectImage();

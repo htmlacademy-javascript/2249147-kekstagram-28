@@ -63,7 +63,7 @@ const Effects = {
   }
 };
 
-const sliderElement = document.querySelector('.effect-level__slider');
+const slider = document.querySelector('.effect-level__slider');
 const effectLevelValue = document.querySelector('.effect-level__value');
 const imagePreview = document.querySelector('.img-upload__preview').querySelector('img');
 const sliderElementContainer = document.querySelector('.img-upload__effect-level');
@@ -73,7 +73,7 @@ let selectedEffect = Effects.none;
 
 const showSlider = (objectEffect) => (objectEffect.showSlider) ? sliderElementContainer.classList.remove('hidden') : sliderElementContainer.classList.add('hidden');
 
-noUiSlider.create(sliderElement, {
+noUiSlider.create(slider, {
   range: {
     min: selectedEffect.effectMin,
     max: selectedEffect.effectMax,
@@ -84,14 +84,14 @@ noUiSlider.create(sliderElement, {
 });
 showSlider(selectedEffect);
 
-sliderElement.noUiSlider.on('update', () => {
-  effectLevelValue.value = sliderElement.noUiSlider.get();
+slider.noUiSlider.on('update', () => {
+  effectLevelValue.value = slider.noUiSlider.get();
   imagePreview.style.filter = `${selectedEffect.effectFilter}(${effectLevelValue.value}${selectedEffect.effectPostfix})`;
 });
 
 const renderImagePreview = (objectEffect) => {
   // Переопределяем настройки слайдера
-  sliderElement.noUiSlider.updateOptions({
+  slider.noUiSlider.updateOptions({
     range: {
       min: objectEffect.effectMin,
       max: objectEffect.effectMax,

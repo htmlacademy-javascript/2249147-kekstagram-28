@@ -7,8 +7,8 @@ const bigPictureWindow = document.querySelector('.big-picture');
 const bigPictureImage = bigPictureWindow.querySelector('.big-picture__img img');
 const bigPictureLikes = bigPictureWindow.querySelector('.likes-count');
 const bigPictureDescription = bigPictureWindow.querySelector('.social__caption');
-const fullPictureOpenElement = document.querySelector('.pictures');
-const fullPictureCloseElement = document.querySelector('#picture-cancel');
+const fullPictureOpen = document.querySelector('.pictures');
+const fullPictureClose = document.querySelector('#picture-cancel');
 const commentsCounter = document.querySelector('.social__comment-count');
 const commentsLoaderButton = document.querySelector('.comments-loader');
 const commentsList = document.querySelector('.social__comments');
@@ -98,13 +98,13 @@ const openFullPicture = (evt, dataArray) => {
 };
 
 const renderFullPicture = (dataArray) => {
-  fullPictureOpenElement.addEventListener('click', (evt) => {
+  fullPictureOpen.addEventListener('click', (evt) => {
     if (evt.target.closest('.picture')) {
       openFullPicture (evt, dataArray);
     }
   });
 
-  fullPictureCloseElement.addEventListener('click', () => {
+  fullPictureClose.addEventListener('click', () => {
     closeFullPicture ();
   });
 };
