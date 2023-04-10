@@ -41,6 +41,7 @@ const reRenderMiniatures = (picturesArray) => {
 
 const renderFilteredMiniatures = (picturesArray) => {
   filtersButtonsModule.classList.remove('img-filters--inactive');
+  const reRenderMiniaturesDebounced = debounce(reRenderMiniatures);
 
   filtersButtonsModule.addEventListener('click', (evt) => {
     if (evt.target.closest('.img-filters__button')) {
@@ -60,11 +61,7 @@ const renderFilteredMiniatures = (picturesArray) => {
       actualArray = filterDiscussed(picturesArray);
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------------???
-    // По факту получилась функция, которая откладывает выполнение reRender. Т.е. если один раз нажать на кнопку, то перерисовка произойдёт через 500мс, а
-    // не сразу. При этом, если в течении некоторого времени нажимать на разные кнопки быстро, то сначала отрисовка не будет происходить, а потом всё начинает
-    // быстро перерисовываться. Не понимаю, где я не так примених debounce ?
-    debounce(() => reRenderMiniatures(actualArray))();
+    reRenderMiniaturesDebounced(actualArray);
   });
 };
 

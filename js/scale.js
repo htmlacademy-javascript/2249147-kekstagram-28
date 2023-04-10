@@ -29,8 +29,8 @@ scaleControlBigger.addEventListener('click', scaleBigger);
 
 const resetScale = () => {
   imagePreview.style.transform = '';
-  scaleControlSmaller.removeEventListener('click', scaleSmaller);
-  scaleControlBigger.removeEventListener('click', scaleBigger);
+  // scaleControlSmaller.removeEventListener('click', scaleSmaller);
+  // scaleControlBigger.removeEventListener('click', scaleBigger);
 };
 
 export { resetScale };

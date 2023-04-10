@@ -35,8 +35,7 @@ function onMessageCloseElement() {
 }
 
 function onFreeAreaClick(evt) {
-// На сколько корректно такой селектор сделать??? Не понимаю, как сюда передать message из renderMessage???--------------------------------------------???
-  if (!evt.target.closest('section div')) {
+  if (!evt.target.closest('.success__inner') && !evt.target.closest('.error__inner')) {
     closeMessage();
   }
 }

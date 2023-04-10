@@ -17,7 +17,6 @@ let commentsShow = 0;
 let chooseObject = {};
 
 const renderComments = (object) => {
-  // debugger;
   commentsLoaderButton.classList.remove('hidden');
   commentsShow += AMOUNT_COMMENTS_DEFAULT ;
 

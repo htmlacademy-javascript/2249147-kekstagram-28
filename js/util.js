@@ -1,4 +1,4 @@
-const ALERT_SHOW_TIME = 5000;
+const ALERT_SHOW_TIME = 500;
 
 // Функция генерации для получения уникальных целых чисел из указанного диапазона
 const getRandomInteger = (min, max) => {
@@ -7,16 +7,6 @@ const getRandomInteger = (min, max) => {
   const result = Math.random() * (upper - lower + 1) + lower;
 
   return Math.floor(result);
-};
-
-//Функция генерации уникальных идентификаторов
-const createIdGenerator = (start) => {
-  let lastGeneratedId = start;
-
-  return function () {
-    lastGeneratedId += 1;
-    return lastGeneratedId;
-  };
 };
 
 // Функция для получения случайного элемента массива, которая
@@ -52,7 +42,7 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-function debounce (callback, timeoutDelay = 2000) {
+function debounce (callback, timeoutDelay = 500) {
   // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
   // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
   let timeoutId;
@@ -70,4 +60,4 @@ function debounce (callback, timeoutDelay = 2000) {
   };
 }
 
-export { createIdGenerator, getRandomInteger, getArrayRandElement, isEscapeKey, isEnterKey, isActiveElement, showAlert, debounce };
+export { getArrayRandElement, isEscapeKey, isEnterKey, isActiveElement, showAlert, debounce };

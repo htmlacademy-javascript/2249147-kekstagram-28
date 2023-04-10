@@ -81,15 +81,6 @@ noUiSlider.create(sliderElement, {
   start: selectedEffect.effectStart,
   step: selectedEffect.effectStep,
   connect: 'lower', // Закрашивание слайдера с минимума до текущего значения
-  // ----------------------------------Нужно ли убирать знаки после запятой в значениях эффектов для отправки на сервер??? В ТЗ про это конкретно нет.-------???
-  // format: {
-  //   to: function (value) {
-  //     return `${value}`;
-  //   },
-  //   from: function (value) {
-  //     return parseFloat(value);
-  //   }
-  // }
 });
 showSlider(selectedEffect);
 

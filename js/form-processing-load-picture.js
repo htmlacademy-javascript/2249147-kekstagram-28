@@ -86,7 +86,6 @@ const unblockSubmitButton = () => {
 
 const onFormSubmit = (onSuccess) => {
   formLoadPicture.addEventListener('submit', (evt) => {
-  // Нужно ли отписываться от этого обработчика и как идеалогически это правильно реализовать-----------------------------------------------------???
     evt.preventDefault();
 
     if(pristine.validate()) {
