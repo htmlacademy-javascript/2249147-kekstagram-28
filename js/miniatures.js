@@ -13,13 +13,13 @@ const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
-const showPictures = (picturesArray) => {
-
+const renderMiniatures = (picturesArray) => {
   // Вставка создаваемых элементов через DocumentFragment
   const similarListFragment = document.createDocumentFragment();
 
-  picturesArray.forEach(({ url, description, likes, comments }) => {
+  picturesArray.forEach(({ id, url, description, likes, comments }) => {
     const pictureElement = pictureTemplate.cloneNode(true);
+    pictureElement.dataset.id = id;
     pictureElement.querySelector('.picture__img').src = url;
     pictureElement.querySelector('.picture__img').alt = description;
     pictureElement.querySelector('.picture__likes').textContent = likes;
@@ -30,4 +30,4 @@ const showPictures = (picturesArray) => {
   picturesList.appendChild(similarListFragment);
 };
 
-export { showPictures };
+export { renderMiniatures };
