@@ -128,7 +128,7 @@ const showSelectImage = () => {
   }
 };
 
-const listenUploadPictureClick = () => {
+const listenUploadPicture = () => {
   formUpLoadPicture.addEventListener('change', () => {
     formOverlay.classList.remove('hidden');
     mainWindow.classList.add('modal-open');
@@ -144,4 +144,4 @@ const listenUploadPictureClick = () => {
   });
 };
 
-export { listenUploadPictureClick, listenPictureUploadFormSubmit, closeFormLoadPicture };
+export { listenUploadPicture, listenPictureUploadFormSubmit, closeFormLoadPicture };
