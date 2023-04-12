@@ -91,7 +91,7 @@ const unblockSubmitButton = () => {
   submitButton.textContent = SubmitButtonText.IDLE;
 };
 
-const onFormSubmit = (onSuccess) => {
+const listenPictureUploadFormSubmit = () => {
   formLoadPicture.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
@@ -99,7 +99,7 @@ const onFormSubmit = (onSuccess) => {
       blockSubmitButton();
       sendData(new FormData(evt.target))
         .then(() => {
-          onSuccess();
+          closeFormLoadPicture();
           renderMessage('success');
         })
         .catch(
@@ -128,7 +128,7 @@ const showSelectImage = () => {
   }
 };
 
-const openFormLoadPicture = () => {
+const listenUploadPictureClick = () => {
   formUpLoadPicture.addEventListener('change', () => {
     formOverlay.classList.remove('hidden');
     mainWindow.classList.add('modal-open');
@@ -144,4 +144,4 @@ const openFormLoadPicture = () => {
   });
 };
 
-export { openFormLoadPicture, onFormSubmit, closeFormLoadPicture };
+export { listenUploadPictureClick, listenPictureUploadFormSubmit, closeFormLoadPicture };
