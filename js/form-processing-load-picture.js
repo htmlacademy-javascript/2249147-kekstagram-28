@@ -91,7 +91,7 @@ const unblockSubmitButton = () => {
   submitButton.textContent = SubmitButtonText.IDLE;
 };
 
-const listenPictureUploadFormSubmit = () => {
+const listenPictureUploadFormSubmit = (onSuccess) => {
   formLoadPicture.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
@@ -99,7 +99,7 @@ const listenPictureUploadFormSubmit = () => {
       blockSubmitButton();
       sendData(new FormData(evt.target))
         .then(() => {
-          closeFormLoadPicture();
+          onSuccess();
           renderMessage('success');
         })
         .catch(
