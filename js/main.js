@@ -2,8 +2,8 @@ import { getData } from './api.js';
 import { renderMiniatures } from './miniatures.js';
 import { renderFullPicture } from './full-picture.js';
 import { openFormLoadPicture, onFormSubmit, closeFormLoadPicture } from './form-processing-load-picture.js';
-import { showAlert } from './util.js';
 import { renderFilteredMiniatures } from './filters.js';
+import { showAlert } from './util.js';
 
 getData()
   .then((objectsArray) => {
