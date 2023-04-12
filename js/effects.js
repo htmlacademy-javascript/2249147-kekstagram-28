@@ -67,7 +67,6 @@ const slider = document.querySelector('.effect-level__slider');
 const effectLevelValue = document.querySelector('.effect-level__value');
 const imagePreview = document.querySelector('.img-upload__preview').querySelector('img');
 const sliderElementContainer = document.querySelector('.img-upload__effect-level');
-const effectSelection = document.querySelector('.img-upload__effects');
 
 let selectedEffect = Effects.none;
 
@@ -106,16 +105,16 @@ const renderImagePreview = (objectEffect) => {
   imagePreview.style.filter = `${selectedEffect.effectFilter}(${selectedEffect.effectStart}${selectedEffect.effectPostfix})`;
 };
 
-effectSelection.addEventListener('change', (evt) => {
+const selectEffect = (evt) => {
   // Определение выбранного эффекта
   selectedEffect = Effects[evt.target.value];
   imagePreview.classList.add(`effects__preview--${evt.target.value}`);
   renderImagePreview(selectedEffect);
-});
+};
 
 const resetEffects = () => {
   selectedEffect = Effects.none;
   renderImagePreview(selectedEffect);
 };
 
-export { resetEffects };
+export { selectEffect, resetEffects };

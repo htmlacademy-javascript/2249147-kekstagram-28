@@ -1,6 +1,6 @@
 import { isEscapeKey, isActiveElement } from './util.js';
-import { resetScale } from './scale.js';
-import { resetEffects } from './effects.js';
+import { scaleSmallerClick, scaleBiggerClick, resetScale } from './scale.js';
+import { selectEffect, resetEffects } from './effects.js';
 import { renderMessage } from './messages.js';
 import { sendData } from './api.js';
 
@@ -24,6 +24,9 @@ const inputHashTag = formLoadPicture.querySelector('.text__hashtags'); // Пол
 const inputYourComment = formLoadPicture.querySelector('.text__description'); // Поле ввода комментария
 const inputChoiseFile = document.querySelector('#upload-file');
 const submitButton = formLoadPicture.querySelector('.img-upload__submit');
+const scaleControlSmaller = document.querySelector('.scale__control--smaller');
+const scaleControlBigger = document.querySelector('.scale__control--bigger');
+const effectSelection = document.querySelector('.img-upload__effects');
 
 const pristine = new Pristine(formLoadPicture, {
   classTo: 'img-upload__field-wrapper',
@@ -55,6 +58,9 @@ const closeFormLoadPicture = () => {
 
   document.removeEventListener('keydown', onDocumentKeydown);
   formCancelLoadPicture.removeEventListener('click', onCloseFormElementClick);
+  scaleControlSmaller.removeEventListener('click', scaleSmallerClick);
+  scaleControlBigger.removeEventListener('click', scaleBiggerClick);
+  effectSelection.removeEventListener('change', selectEffect);
 
   // Сброс значений при закрытии формы.
   // Сброс значения поля выбора файла #upload-file.
@@ -129,6 +135,9 @@ const openFormLoadPicture = () => {
 
     document.addEventListener('keydown', onDocumentKeydown);
     formCancelLoadPicture.addEventListener('click', onCloseFormElementClick);
+    scaleControlSmaller.addEventListener('click', scaleSmallerClick);
+    scaleControlBigger.addEventListener('click', scaleBiggerClick);
+    effectSelection.addEventListener('change', selectEffect);
 
     // Подставляем адрес выбранной картинки
     showSelectImage();

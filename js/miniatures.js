@@ -14,7 +14,6 @@ const pictureTemplate = document.querySelector('#picture')
   .querySelector('.picture');
 
 const renderMiniatures = (picturesArray) => {
-
   // Вставка создаваемых элементов через DocumentFragment
   const similarListFragment = document.createDocumentFragment();
 

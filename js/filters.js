@@ -4,6 +4,12 @@ import { getArrayRandElement, debounce } from './util.js';
 // Максимальное количество случайно(!!!) выводимых элементов
 const AMMOUNT_FILTERED_PICTURES = 10;
 
+const FilterClasses = {
+  DEFAULT: '#filter-default',
+  RANDOM: '#filter-random',
+  DISCUSSED: '#filter-discussed'
+};
+
 // После завершения загрузки изображений с сервера покажите блок .img-filters, убрав у него скрывающий класс.
 const filtersButtonsModule = document.querySelector('.img-filters');
 const filtersButtons = filtersButtonsModule.querySelectorAll('.img-filters__button');
@@ -50,13 +56,13 @@ const renderFilteredMiniatures = (picturesArray) => {
       return;
     }
 
-    if (evt.target.closest('#filter-default')) {
+    if (evt.target.closest(FilterClasses.DEFAULT)) {
       fiterButtonDefault.classList.add('img-filters__button--active');
       actualArray = picturesArray;
-    } else if (evt.target.closest('#filter-random')) {
+    } else if (evt.target.closest(FilterClasses.RANDOM)) {
       fiterButtonRandom.classList.add('img-filters__button--active');
       actualArray = filterRandom(picturesArray);
-    } else if (evt.target.closest('#filter-discussed')) {
+    } else if (evt.target.closest(FilterClasses.DISCUSSED)) {
       fiterButtonDiscussed.classList.add('img-filters__button--active');
       actualArray = filterDiscussed(picturesArray);
     }
