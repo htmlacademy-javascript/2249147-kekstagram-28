@@ -7,6 +7,8 @@ import { sendData } from './api.js';
 // Ошибка заполнения поля #ХэшТэг: регулярное выражение и количество допустимых хэштегов
 const HASH_TAGS_STANDART = /^#[a-zа-яё0-9]{1,19}$/i;
 const HASH_TAGS_AMOUNT = 5;
+const ACTIVE_ERROR_CLASS = '.error__inner';
+
 // Допустимые типы файлов загружаемых изображений
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
@@ -71,7 +73,7 @@ const closeFormLoadPicture = () => {
 };
 
 function onDocumentKeydown(evt) {
-  if (isEscapeKey(evt) && !isActiveElement(inputHashTag) && !isActiveElement(inputYourComment) && document.querySelector('.error__inner') === null) {
+  if (isEscapeKey(evt) && !isActiveElement(inputHashTag) && !isActiveElement(inputYourComment) && document.querySelector(ACTIVE_ERROR_CLASS) === null) {
     evt.preventDefault();
     closeFormLoadPicture();
   }
