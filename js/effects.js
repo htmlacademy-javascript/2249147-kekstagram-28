@@ -105,7 +105,7 @@ const renderImagePreview = (objectEffect) => {
   imagePreview.style.filter = `${selectedEffect.effectFilter}(${selectedEffect.effectStart}${selectedEffect.effectPostfix})`;
 };
 
-const selectEffect = (evt) => {
+const onSelectedEffectClick = (evt) => {
   // Определение выбранного эффекта
   selectedEffect = Effects[evt.target.value];
   imagePreview.classList.add(`effects__preview--${evt.target.value}`);
@@ -117,4 +117,4 @@ const resetEffects = () => {
   renderImagePreview(selectedEffect);
 };
 
-export { selectEffect, resetEffects };
+export { onSelectedEffectClick, resetEffects };

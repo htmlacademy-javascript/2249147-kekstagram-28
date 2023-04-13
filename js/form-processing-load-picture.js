@@ -1,6 +1,6 @@
 import { isEscapeKey, isActiveElement } from './util.js';
-import { scaleSmallerClick, scaleBiggerClick, resetScale } from './scale.js';
-import { selectEffect, resetEffects } from './effects.js';
+import { onScaleSmallerClick, onScaleBiggerClick, resetScale } from './scale.js';
+import { onSelectedEffectClick, resetEffects } from './effects.js';
 import { renderMessage } from './messages.js';
 import { sendData } from './api.js';
 
@@ -58,9 +58,9 @@ const closeFormLoadPicture = () => {
 
   document.removeEventListener('keydown', onDocumentKeydown);
   formCancelLoadPicture.removeEventListener('click', onCloseFormElementClick);
-  scaleControlSmaller.removeEventListener('click', scaleSmallerClick);
-  scaleControlBigger.removeEventListener('click', scaleBiggerClick);
-  effectSelection.removeEventListener('change', selectEffect);
+  scaleControlSmaller.removeEventListener('click', onScaleSmallerClick);
+  scaleControlBigger.removeEventListener('click', onScaleBiggerClick);
+  effectSelection.removeEventListener('change', onSelectedEffectClick);
 
   // Сброс значений при закрытии формы.
   // Сброс значения поля выбора файла #upload-file.
@@ -71,7 +71,7 @@ const closeFormLoadPicture = () => {
 };
 
 function onDocumentKeydown(evt) {
-  if (isEscapeKey(evt) && !isActiveElement(inputHashTag) && !isActiveElement(inputYourComment)) {
+  if (isEscapeKey(evt) && !isActiveElement(inputHashTag) && !isActiveElement(inputYourComment) && document.querySelector('.error__inner') === null) {
     evt.preventDefault();
     closeFormLoadPicture();
   }
@@ -118,7 +118,7 @@ const showSelectImage = () => {
   const bigPictureImage = formLoadPicture.querySelector('.img-upload__preview img');
   const previewEffectsImages = formLoadPicture.querySelectorAll('.effects__preview');
 
-  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+  const matches = FILE_TYPES.some((extension) => fileName.endsWith(extension));
 
   if (matches) {
     bigPictureImage.src = URL.createObjectURL(formUpLoadPicture.files[0]);
@@ -135,9 +135,9 @@ const listenUploadPicture = () => {
 
     document.addEventListener('keydown', onDocumentKeydown);
     formCancelLoadPicture.addEventListener('click', onCloseFormElementClick);
-    scaleControlSmaller.addEventListener('click', scaleSmallerClick);
-    scaleControlBigger.addEventListener('click', scaleBiggerClick);
-    effectSelection.addEventListener('change', selectEffect);
+    scaleControlSmaller.addEventListener('click', onScaleSmallerClick);
+    scaleControlBigger.addEventListener('click', onScaleBiggerClick);
+    effectSelection.addEventListener('change', onSelectedEffectClick);
 
     // Подставляем адрес выбранной картинки
     showSelectImage();
