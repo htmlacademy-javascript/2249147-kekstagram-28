@@ -1,5 +1,10 @@
 import { isEscapeKey } from './util.js';
 
+const MessageTypes = {
+  SUCCESS: 'success',
+  ERROR: 'error'
+};
+
 // Поиск тега для добавления сообщений
 const documentBody = document.querySelector('body');
 
@@ -42,10 +47,10 @@ function onFreeAreaClick(evt) {
 
 const renderMessage = (message) => {
   switch(message) {
-    case 'success':
+    case MessageTypes.SUCCESS:
       newMessageTamplate = successMessageTamplate;
       break;
-    case 'error':
+    case MessageTypes.ERROR:
       newMessageTamplate = errorMessageTamplate;
       break;
   }

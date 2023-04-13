@@ -3,6 +3,8 @@ import { getArrayRandElement, debounce } from './util.js';
 
 // Максимальное количество случайно(!!!) выводимых элементов
 const AMMOUNT_FILTERED_PICTURES = 10;
+const INACTIVE_FILTERS_BUTTONS_CLASS = 'img-filters--inactive';
+const ACTIVE_FILTERS_BUTTON_CLASS = 'img-filters__button--active';
 
 const FilterClasses = {
   DEFAULT: '#filter-default',
@@ -22,13 +24,13 @@ let actualArray = {};
 const filterRandom = (picturesArray) => {
   const workArray = picturesArray.slice();
   const randomArray = [];
-  let newElement = [];
+  let newElements = [];
   let newElementIndex = 0;
 
   for (let i = workArray.length; i > 0; i--) {
-    newElement = getArrayRandElement(workArray);
-    randomArray.push(newElement);
-    newElementIndex = workArray.indexOf(newElement);
+    newElements = getArrayRandElement(workArray);
+    randomArray.push(newElements);
+    newElementIndex = workArray.indexOf(newElements);
     workArray.splice(newElementIndex, 1);
   }
 
@@ -46,24 +48,24 @@ const reRenderMiniatures = (picturesArray) => {
 };
 
 const renderFilteredMiniatures = (picturesArray) => {
-  filtersButtonsModule.classList.remove('img-filters--inactive');
+  filtersButtonsModule.classList.remove(INACTIVE_FILTERS_BUTTONS_CLASS);
   const reRenderMiniaturesDebounced = debounce(reRenderMiniatures);
 
   filtersButtonsModule.addEventListener('click', (evt) => {
     if (evt.target.closest('.img-filters__button')) {
-      filtersButtons.forEach((button) => button.classList.remove('img-filters__button--active'));
+      filtersButtons.forEach((button) => button.classList.remove(ACTIVE_FILTERS_BUTTON_CLASS));
     } else {
       return;
     }
 
     if (evt.target.closest(FilterClasses.DEFAULT)) {
-      fiterButtonDefault.classList.add('img-filters__button--active');
+      fiterButtonDefault.classList.add(ACTIVE_FILTERS_BUTTON_CLASS);
       actualArray = picturesArray;
     } else if (evt.target.closest(FilterClasses.RANDOM)) {
-      fiterButtonRandom.classList.add('img-filters__button--active');
+      fiterButtonRandom.classList.add(ACTIVE_FILTERS_BUTTON_CLASS);
       actualArray = filterRandom(picturesArray);
     } else if (evt.target.closest(FilterClasses.DISCUSSED)) {
-      fiterButtonDiscussed.classList.add('img-filters__button--active');
+      fiterButtonDiscussed.classList.add(ACTIVE_FILTERS_BUTTON_CLASS);
       actualArray = filterDiscussed(picturesArray);
     }
 
