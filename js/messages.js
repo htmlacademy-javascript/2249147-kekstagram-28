@@ -5,17 +5,20 @@ const MessageTypes = {
   ERROR: 'error'
 };
 
+const SUCCESS_MESSAGE_TAMPLATE_SELECTOR = '.success';
+const ERROR_MESSAGE_TAMPLATE_SELECTOR = '.error';
+
 // Поиск тега для добавления сообщений
 const documentBody = document.querySelector('body');
 
 // Поиск шаблона разметки сообщений об успешной отправке данных
 const successMessageTamplate = document.querySelector('#success')
   .content
-  .querySelector(`.${MessageTypes.SUCCESS}`);
+  .querySelector(SUCCESS_MESSAGE_TAMPLATE_SELECTOR);
 // Поиск шаблона разметки сообщений об ошибке запроса
 const errorMessageTamplate = document.querySelector('#error')
   .content
-  .querySelector(`.${MessageTypes.ERROR}`);
+  .querySelector(ERROR_MESSAGE_TAMPLATE_SELECTOR);
 let newMessageTamplate = {};
 let messageElement = {};
 let messageCloseElement = {};
@@ -63,4 +66,4 @@ const renderMessage = (message) => {
   document.addEventListener('click', onFreeAreaClick);
 };
 
-export { renderMessage };
+export { MessageTypes, renderMessage };
