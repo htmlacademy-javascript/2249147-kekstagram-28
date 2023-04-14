@@ -60,7 +60,7 @@ const closeFullPicture = () => {
 
   commentsLoaderButton.removeEventListener('click', onCommentsLoaderButtonClick);
   document.removeEventListener('keydown', onDocumentKeydown);
-  fullPictureClose.removeEventListener('click', onfullPictureCloseClick);
+  fullPictureClose.removeEventListener('click', onFullPictureCloseClick);
 };
 
 function onDocumentKeydown(evt) {
@@ -70,7 +70,7 @@ function onDocumentKeydown(evt) {
   }
 }
 
-function onfullPictureCloseClick() {
+function onFullPictureCloseClick() {
   closeFullPicture();
 }
 
@@ -78,7 +78,7 @@ const openFullPicture = (evt, dataArray) => {
   bigPictureWindow.classList.remove('hidden');
   commentsShow = 0;
   document.addEventListener('keydown', onDocumentKeydown);
-  fullPictureClose.addEventListener('click', onfullPictureCloseClick);
+  fullPictureClose.addEventListener('click', onFullPictureCloseClick);
 
   // После открытия окна добавление тегу <body> класс modal-open,
   // чтобы контейнер с фотографиями позади не прокручивался при скролле.
