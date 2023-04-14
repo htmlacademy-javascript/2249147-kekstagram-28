@@ -11,11 +11,11 @@ const documentBody = document.querySelector('body');
 // Поиск шаблона разметки сообщений об успешной отправке данных
 const successMessageTamplate = document.querySelector('#success')
   .content
-  .querySelector('.success');
+  .querySelector(`.${MessageTypes.SUCCESS}`);
 // Поиск шаблона разметки сообщений об ошибке запроса
 const errorMessageTamplate = document.querySelector('#error')
   .content
-  .querySelector('.error');
+  .querySelector(`.${MessageTypes.ERROR}`);
 let newMessageTamplate = {};
 let messageElement = {};
 let messageCloseElement = {};
