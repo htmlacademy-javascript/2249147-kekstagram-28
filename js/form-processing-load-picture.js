@@ -1,6 +1,6 @@
 import { isEscapeKey, isActiveElement } from './util.js';
 import { onScaleSmallerClick, onScaleBiggerClick, resetScale } from './scale.js';
-import { onSelectedEffectClick, resetEffects } from './effects.js';
+import { onSelectedEffectChange, resetEffects } from './effects.js';
 import { renderMessage } from './messages.js';
 import { sendData } from './api.js';
 
@@ -10,9 +10,9 @@ const HASH_TAGS_AMOUNT = 5;
 const ACTIVE_ERROR_CLASS = '.error__inner';
 
 // Допустимые типы файлов загружаемых изображений
-const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const FILE_EXTENSIONS = ['jpg', 'jpeg', 'png'];
 
-const SubmitButtonText = {
+const SubmitButtonTexts = {
   IDLE: 'Опубликовать',
   SENDING: 'Отправляется...'
 };
@@ -62,7 +62,7 @@ const closeFormLoadPicture = () => {
   formCancelLoadPicture.removeEventListener('click', onCloseFormElementClick);
   scaleControlSmaller.removeEventListener('click', onScaleSmallerClick);
   scaleControlBigger.removeEventListener('click', onScaleBiggerClick);
-  effectSelection.removeEventListener('change', onSelectedEffectClick);
+  effectSelection.removeEventListener('change', onSelectedEffectChange);
 
   // Сброс значений при закрытии формы.
   // Сброс значения поля выбора файла #upload-file.
@@ -85,12 +85,12 @@ function onCloseFormElementClick() {
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
-  submitButton.textContent = SubmitButtonText.SENDING;
+  submitButton.textContent = SubmitButtonTexts.SENDING;
 };
 
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
-  submitButton.textContent = SubmitButtonText.IDLE;
+  submitButton.textContent = SubmitButtonTexts.IDLE;
 };
 
 const listenPictureUploadFormSubmit = (onSuccess) => {
@@ -120,7 +120,7 @@ const showSelectImage = () => {
   const bigPictureImage = formLoadPicture.querySelector('.img-upload__preview img');
   const previewEffectsImages = formLoadPicture.querySelectorAll('.effects__preview');
 
-  const matches = FILE_TYPES.some((extension) => fileName.endsWith(extension));
+  const matches = FILE_EXTENSIONS.some((fileExtension) => fileName.endsWith(fileExtension));
 
   if (matches) {
     bigPictureImage.src = URL.createObjectURL(formUpLoadPicture.files[0]);
@@ -139,7 +139,7 @@ const listenUploadPicture = () => {
     formCancelLoadPicture.addEventListener('click', onCloseFormElementClick);
     scaleControlSmaller.addEventListener('click', onScaleSmallerClick);
     scaleControlBigger.addEventListener('click', onScaleBiggerClick);
-    effectSelection.addEventListener('change', onSelectedEffectClick);
+    effectSelection.addEventListener('change', onSelectedEffectChange);
 
     // Подставляем адрес выбранной картинки
     showSelectImage();
