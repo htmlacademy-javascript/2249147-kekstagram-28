@@ -1,7 +1,7 @@
 import { isEscapeKey, isActiveElement } from './util.js';
 import { onScaleSmallerClick, onScaleBiggerClick, resetScale } from './scale.js';
 import { onSelectedEffectChange, resetEffects } from './effects.js';
-import { renderMessage } from './messages.js';
+import { MessageTypes, renderMessage } from './messages.js';
 import { sendData } from './api.js';
 
 // Ошибка заполнения поля #ХэшТэг: регулярное выражение и количество допустимых хэштегов
@@ -102,11 +102,11 @@ const listenPictureUploadFormSubmit = (onSuccess) => {
       sendData(new FormData(evt.target))
         .then(() => {
           onSuccess();
-          renderMessage('success');
+          renderMessage(MessageTypes.SUCCESS);
         })
         .catch(
           () => {
-            renderMessage('error');
+            renderMessage(MessageTypes.ERROR);
           }
         )
         .finally(unblockSubmitButton);
