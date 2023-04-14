@@ -5,20 +5,17 @@ const MessageTypes = {
   ERROR: 'error'
 };
 
-const SUCCESS_MESSAGE_TAMPLATE_SELECTOR = '.success';
-const ERROR_MESSAGE_TAMPLATE_SELECTOR = '.error';
-
 // Поиск тега для добавления сообщений
 const documentBody = document.querySelector('body');
 
 // Поиск шаблона разметки сообщений об успешной отправке данных
 const successMessageTamplate = document.querySelector('#success')
   .content
-  .querySelector(SUCCESS_MESSAGE_TAMPLATE_SELECTOR);
+  .querySelector('.success');
 // Поиск шаблона разметки сообщений об ошибке запроса
 const errorMessageTamplate = document.querySelector('#error')
   .content
-  .querySelector(ERROR_MESSAGE_TAMPLATE_SELECTOR);
+  .querySelector('.error');
 let newMessageTamplate = {};
 let messageElement = {};
 let messageCloseElement = {};
