@@ -3,8 +3,9 @@ import { getArrayRandElement, debounce } from './util.js';
 
 // Максимальное количество случайно(!!!) выводимых элементов
 const AMMOUNT_FILTERED_PICTURES = 10;
-const INACTIVE_FILTERS_BUTTONS_CLASS = 'img-filters--inactive';
-const ACTIVE_FILTERS_BUTTON_CLASS = 'img-filters__button--active';
+const INACTIVE_FILTERS_BUTTONS_SELECTOR = 'img-filters--inactive';
+const ACTIVE_FILTERS_BUTTON_SELECTOR = 'img-filters__button--active';
+const IMG_FILTERS_BUTTON_SELECTOR = '.img-filters__button';
 
 const FilterClasses = {
   DEFAULT: '#filter-default',
@@ -48,24 +49,24 @@ const reRenderMiniatures = (picturesArray) => {
 };
 
 const renderFilteredMiniatures = (picturesArray) => {
-  filtersButtonsModule.classList.remove(INACTIVE_FILTERS_BUTTONS_CLASS);
+  filtersButtonsModule.classList.remove(INACTIVE_FILTERS_BUTTONS_SELECTOR);
   const reRenderMiniaturesDebounced = debounce(reRenderMiniatures);
 
   filtersButtonsModule.addEventListener('click', (evt) => {
-    if (evt.target.closest('.img-filters__button')) {
-      filtersButtons.forEach((button) => button.classList.remove(ACTIVE_FILTERS_BUTTON_CLASS));
+    if (evt.target.closest(IMG_FILTERS_BUTTON_SELECTOR)) {
+      filtersButtons.forEach((button) => button.classList.remove(ACTIVE_FILTERS_BUTTON_SELECTOR));
     } else {
       return;
     }
 
     if (evt.target.closest(FilterClasses.DEFAULT)) {
-      fiterButtonDefault.classList.add(ACTIVE_FILTERS_BUTTON_CLASS);
+      fiterButtonDefault.classList.add(ACTIVE_FILTERS_BUTTON_SELECTOR);
       actualArray = picturesArray;
     } else if (evt.target.closest(FilterClasses.RANDOM)) {
-      fiterButtonRandom.classList.add(ACTIVE_FILTERS_BUTTON_CLASS);
+      fiterButtonRandom.classList.add(ACTIVE_FILTERS_BUTTON_SELECTOR);
       actualArray = filterRandom(picturesArray);
     } else if (evt.target.closest(FilterClasses.DISCUSSED)) {
-      fiterButtonDiscussed.classList.add(ACTIVE_FILTERS_BUTTON_CLASS);
+      fiterButtonDiscussed.classList.add(ACTIVE_FILTERS_BUTTON_SELECTOR);
       actualArray = filterDiscussed(picturesArray);
     }
 
